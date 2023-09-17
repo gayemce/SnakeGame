@@ -38,20 +38,6 @@ snakeHeadDown.src = 'snakeHeadDown.png';
 const snakeBody = new Image();
 snakeBody.src = 'snakeBody.png';
 
-// const SnakebodyLeft = new Image();
-// SnakebodyLeft.src = 'SnakebodyLeft.png';
-
-// const SnakebodyRight = new Image();
-// SnakebodyRight.src = 'SnakebodyRight.png';
-
-// const SnakebodyUp = new Image();
-// SnakebodyUp.src = 'SnakebodyUp.png';
-
-// const SnakebodyDown = new Image();
-// SnakebodyDown.src = 'SnakebodyDown.png';
-
-
-
 let yilanUzunluğu = 3;
 let yilanParcalari = [];
 
