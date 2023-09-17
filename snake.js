@@ -14,14 +14,42 @@ let hareketX = 0;
 let hareketY = 0;
 let elmaX = 5;
 let elmaY = 5;
-let konum = 20;
+let konum = 25;
 let boyut = 18;
 let skor = 0;
-let hiz = 10;
+let hiz = 6;
 let can = 3;
 
 const elmaGorsel = new Image();
 elmaGorsel.src = 'elma.png';
+
+const snakeHeadLeft = new Image();
+snakeHeadLeft.src = 'snakeHeadLeft.png';
+
+const snakeHeadRight = new Image();
+snakeHeadRight.src = 'snakeHeadRight.png';
+
+const snakeHeadUp = new Image();
+snakeHeadUp.src = 'snakeHeadUp.png';
+
+const snakeHeadDown = new Image();
+snakeHeadDown.src = 'snakeHeadDown.png';
+
+const snakeBody = new Image();
+snakeBody.src = 'snakeBody.png';
+
+// const SnakebodyLeft = new Image();
+// SnakebodyLeft.src = 'SnakebodyLeft.png';
+
+// const SnakebodyRight = new Image();
+// SnakebodyRight.src = 'SnakebodyRight.png';
+
+// const SnakebodyUp = new Image();
+// SnakebodyUp.src = 'SnakebodyUp.png';
+
+// const SnakebodyDown = new Image();
+// SnakebodyDown.src = 'SnakebodyDown.png';
+
 
 
 let yilanUzunluğu = 3;
@@ -59,16 +87,18 @@ function oyunuCiz(){
     
 }
 
+//canvas
 function ekraniTemizle(){
+    // ctx.fillStyle = "#558000"
     ctx.fillStyle = "black"
-    ctx.fillRect(0,0,canvas.clientWidth,canvas.clientHeight)
+    ctx.fillRect(0,0,canvasWidth,canvasHeight)
 }
 
-function yilanCiz(){
+function yilanCiz() {
     //yılanın gövdesi
     ctx.fillStyle = "green";
     for(let i of yilanParcalari){ //for of, forech gibi çalışır
-        ctx.fillRect(i.x * konum, i.y * konum, boyut, boyut);
+        ctx.drawImage(snakeBody, i.x * konum, i.y * konum, boyut, boyut)
     }
 
     yilanParcalari.push(new yilanParcasi(x,y));
@@ -77,14 +107,25 @@ function yilanCiz(){
     if(yilanParcalari.length > yilanUzunluğu){
         yilanParcalari.shift();
     }
-
-    //yılanın başı
-    ctx.fillStyle = "white";
-    ctx.fillRect(x * konum, y * konum, boyut, boyut);
+    
+    // Eğer başlangıçta hiç hareket etmediyse, başı sola bakacak şekilde ayarla
+    if (hareketX === 0 && hareketY === 0) {
+        ctx.drawImage(snakeHeadLeft, x * konum, y * konum, boyut, boyut);
+    } else {
+        // Yılanın başının yeni konumu üzerinden hareket yönüne uygun görseli çiz
+        if (hareketX === -1) {
+            ctx.drawImage(snakeHeadLeft, x * konum, y * konum, boyut, boyut);
+        } else if (hareketX === 1) {
+            ctx.drawImage(snakeHeadRight, x * konum, y * konum, boyut, boyut);
+        } else if (hareketY === -1) {
+            ctx.drawImage(snakeHeadUp, x * konum, y * konum, boyut, boyut);
+        } else if (hareketY === 1) {
+            ctx.drawImage(snakeHeadDown, x * konum, y * konum, boyut, boyut);
+        }
+    }
 }
 
 function elmaCiz(){
-    ctx.fillStyle = "red";
     //ctx.fillRect(elmaX * konum, elmaY * konum, boyut, boyut);
     ctx.drawImage(elmaGorsel, elmaX * konum, elmaY * konum, 20, 20)
 }
