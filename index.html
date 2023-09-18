@@ -58,12 +58,36 @@
                 width: 80%;
             }
         } 
-        
+
+        #container{
+            display: flex;
+        }
+
+        #skorLabel, #hizLabel, #canLabel {
+            font-family: verdana;
+            font-size: 18px;
+            margin: 0.8rem 3rem;
+        }
+        #skorLabel {
+            color: #F86F03;
+        }
+        #hizLabel {
+            color: #279EFF;
+        }
+        #canLabel {
+            color: #38E54D;
+        }
     </style>
 </head>
 <body>
     <button onclick="yeniOyun()">Yeni Oyun</button>
-    <canvas width="500" height="500" id="game"></canvas> <!-- iç içe ekleme yapılabilir -->
+    <div id="container">
+        <div id="skorLabel">Skor: 0</div>
+        <div id="hizLabel">Hız: 0</div>
+        <div id="canLabel">Can: 100</div>
+    </div>
+    
+    <canvas width="400" height="400" id="game"></canvas> <!-- iç içe ekleme yapılabilir -->
 
     <script src="./snake.js"></script>
 </body>

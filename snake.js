@@ -14,7 +14,7 @@ let hareketX = 0;
 let hareketY = 0;
 let elmaX = 5;
 let elmaY = 5;
-let konum = 25;
+let konum = 20;
 let boyut = 18;
 let skor = 0;
 let hiz = 6;
@@ -48,12 +48,6 @@ class yilanParcasi{
     }
 }
 
-let liste = [10,50,30,50];
-for(let i in liste){
-    console.log(i);
-}
-
-
 function oyunuCiz(){
     ekraniTemizle();
     yilanCiz();
@@ -82,7 +76,6 @@ function ekraniTemizle(){
 
 function yilanCiz() {
     //yılanın gövdesi
-    ctx.fillStyle = "green";
     for(let i of yilanParcalari){ //for of, forech gibi çalışır
         ctx.drawImage(snakeBody, i.x * konum, i.y * konum, boyut, boyut)
     }
@@ -191,15 +184,11 @@ function elmaKonumGuncelle(){
 }
 
 function skoruCiz(){
-    ctx.fillStyle = "white";
-    ctx.font = "16px verdana";
-    ctx.fillText(`Skor: ${skor}`, canvasWidth - 80, 18)
+    document.getElementById('skorLabel').textContent = `Skor: ${skor}`;
 }
 
 function hiziCiz(){
-    ctx.fillStyle = "white";
-    ctx.font = "16px verdana";
-    ctx.fillText(`Hız: ${hiz}`, canvasWidth - 390, 18)
+    document.getElementById('hizLabel').textContent = `Hız: ${hiz}`;
 }
 
 function oyunBittiMi(){
@@ -234,9 +223,7 @@ function oyunBittiMi(){
 }
 
 function canCiz(){
-    ctx.fillStyle = "white";
-    ctx.font = "16px verdana";
-    ctx.fillText(`Can: ${can}`,canvasWidth-230,18)
+    document.getElementById('canLabel').textContent = `Can: ${can}`;
 }
 
 function yeniOyun() {
