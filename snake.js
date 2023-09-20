@@ -6,19 +6,20 @@ document.addEventListener("keydown",tusHareketleri);
 
 
 // direkt px değer alıyorlar
-let canvasHeight = canvas.clientHeight;
-let canvasWidth = canvas.clientWidth;
-let x = 10;
-let y = 10;
+let canvasHeight = 440;
+let canvasWidth = 440;
+let x = 11;
+let y = 11;
 let hareketX = 0;
 let hareketY = 0;
 let elmaX = 5;
 let elmaY = 5;
 let konum = 20;
-let boyut = 18;
+let boyut = 24;
 let skor = 0;
 let hiz = 6;
 let can = 3;
+let oyunBasladi = false;
 
 const elmaGorsel = new Image();
 elmaGorsel.src = 'elma.png';
@@ -56,7 +57,7 @@ function oyunuCiz(){
     elmaKonumGuncelle();
     skoruCiz();
     hiziCiz();
-    canCiz();
+    // canCiz();
     const sonuc = oyunBittiMi();
 
     if(sonuc) return;
@@ -69,17 +70,18 @@ function oyunuCiz(){
 
 //canvas
 function ekraniTemizle(){
-    // ctx.fillStyle = "#558000"
-    ctx.fillStyle = "black"
+    ctx.fillStyle = "#FFFFBC" 
     ctx.fillRect(0,0,canvasWidth,canvasHeight)
 }
 
 function yilanCiz() {
     //yılanın gövdesi
-    for(let i of yilanParcalari){ //for of, forech gibi çalışır
-        ctx.drawImage(snakeBody, i.x * konum, i.y * konum, boyut, boyut)
+    if(oyunBasladi){
+        for(let i of yilanParcalari){ //for of, forech gibi çalışır
+            ctx.drawImage(snakeBody, i.x * konum, i.y * konum, boyut, boyut)
+        }
     }
-
+    
     yilanParcalari.push(new yilanParcasi(x,y));
 
 
@@ -103,6 +105,7 @@ function yilanCiz() {
         }
     }
 }
+
 
 function elmaCiz(){
     //ctx.fillRect(elmaX * konum, elmaY * konum, boyut, boyut);
@@ -132,6 +135,8 @@ function tusHareketleri(e){
             hareketX = 0;        
             break;
     }
+
+    oyunBasladi = true;
 }
 
 function yilanHareketiniGuncelle(){
@@ -139,17 +144,17 @@ function yilanHareketiniGuncelle(){
     let sonucY = y+ hareketY;
 
     //yukardan gittiğinde aşağıdan tekrar gelsin
-    if(sonucY < 0){ //kendi boyutu 18px olduğu için 19dan gelmeli
-        sonucY = 19;
+    if(sonucY < 0){ //kendi boyutu 18px olduğu için 21den gelmeli
+        sonucY = 21;
     }
-    else if(sonucY > 19){ //aşağıdan gittiğinde yukarıdan tekrar gelsin
+    else if(sonucY > 21){ //aşağıdan gittiğinde yukarıdan tekrar gelsin
         sonucY = 0
     }
 
     if(sonucX < 0){
-        sonucX = 19;
+        sonucX = 21;
     }
-    else if(sonucX > 19){
+    else if(sonucX > 21){
         sonucX = 0;
     }
 
@@ -198,25 +203,15 @@ function oyunBittiMi(){
     for(let index in yilanParcalari){
         let parca = yilanParcalari[index]
         if(parca.x === x && parca.y === y){ //kendine çarptığında
-            can--;
-            if(can === 0){
-                oyunBitti = true;
-                //can = 0;
-                break;
-            }
-            yilanParcalari.splice(0,index);
-            yilanUzunluğu = yilanParcalari.length;
-            skor = yilanUzunluğu * 10;
-            hiz -= 3;
-            // oyunBitti = true;
-            break
+            oyunBitti = true;
+            break;
         }
     }
 
     if(oyunBitti){
         ctx.fillStyle = "white";
-        ctx.font = "50px Verdana";
-        ctx.fillText(`Game Over!`, canvasWidth/4.5, canvasHeight/2);
+        ctx.font = "60px Verdana";
+        ctx.fillText(`Game Over!`, canvasWidth/10, canvasHeight/2);
     }
 
     return oyunBitti;
