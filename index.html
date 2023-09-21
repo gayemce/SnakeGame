@@ -63,28 +63,30 @@
             display: flex;
         }
 
-        #skorLabel, #hizLabel, #canLabel {
+        #skorLabel, #hizLabel, #hamburgerLabel {
             font-family: verdana;
             font-size: 18px;
-            margin: 0.8rem 3rem;
+            margin: 0.8rem 2.5rem;
         }
         #skorLabel {
-            color: #F86F03;
+            color: #279EFF;
         }
         #hizLabel {
             color: #279EFF;
         }
-        #canLabel {
-            color: #38E54D;
+        #hamburgerLabel {
+            color: red;
         }
+
+        
     </style>
 </head>
 <body>
     <button onclick="yeniOyun()">Yeni Oyun</button>
     <div id="container">
         <div id="skorLabel">Skor: 0</div>
+        <div id="hamburgerLabel">Ödül Süresi: 0</div>
         <div id="hizLabel">Hız: 0</div>
-        <!-- <div id="canLabel">Can: 100</div> -->
     </div>
     
     <canvas width="440" height="440" id="game"></canvas> <!-- iç içe ekleme yapılabilir -->

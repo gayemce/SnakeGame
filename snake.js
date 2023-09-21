@@ -17,12 +17,20 @@ let elmaY = 5;
 let konum = 20;
 let boyut = 24;
 let skor = 0;
-let hiz = 6;
-let can = 3;
+let hiz = 5;
 let oyunBasladi = false;
+let hamburgerX = 10;
+let hamburgerY = 20;
+let hamburgerGelsin = false;
+let hamburgerSuresi = 25;
 
-const elmaGorsel = new Image();
-elmaGorsel.src = 'elma.png';
+document.getElementById("hamburgerLabel").style.display = "none";
+
+const apple = new Image();
+apple.src = 'apple.png';
+
+const hamburger = new Image();
+hamburger.src = 'hamburger.png';
 
 const snakeHeadLeft = new Image();
 snakeHeadLeft.src = 'snakeHeadLeft.png';
@@ -38,6 +46,7 @@ snakeHeadDown.src = 'snakeHeadDown.png';
 
 const snakeBody = new Image();
 snakeBody.src = 'snakeBody.png';
+
 
 let yilanUzunluğu = 3;
 let yilanParcalari = [];
@@ -57,8 +66,10 @@ function oyunuCiz(){
     elmaKonumGuncelle();
     skoruCiz();
     hiziCiz();
-    // canCiz();
     const sonuc = oyunBittiMi();
+    hamburgerCiz();
+    hamburgerKonumGuncelle();
+    hamburgerSuresiCiz();
 
     if(sonuc) return;
 
@@ -109,7 +120,13 @@ function yilanCiz() {
 
 function elmaCiz(){
     //ctx.fillRect(elmaX * konum, elmaY * konum, boyut, boyut);
-    ctx.drawImage(elmaGorsel, elmaX * konum, elmaY * konum, 20, 20)
+    ctx.drawImage(apple, elmaX * konum, elmaY * konum, 20, 20)
+}
+
+function hamburgerCiz(){
+    if(oyunBasladi && hamburgerGelsin){
+        ctx.drawImage(hamburger, hamburgerX * konum, hamburgerY * konum, 20, 20)
+    }
 }
 
 function tusHareketleri(e){
@@ -181,9 +198,44 @@ function elmaKonumGuncelle(){
 
         yilanUzunluğu++; //elmayı yediğinde
         skor = skor + 10;
+        if(skor % 3 === 0){
+            hamburgerGelsin = true;
+        }
 
         if(yilanUzunluğu % 3 === 0){
             hiz += 3;
+        }
+    }
+}
+
+function hamburgerKonumGuncelle(){
+    if(x === hamburgerX && y === hamburgerY){ //hamburger ve yılan aynı konumdaysa
+        //hamburger rastgele bir konuma geçsin
+        hamburgerX = Math.floor(Math.random() * konum);//random 0-1 arası değer üretir
+        hamburgerY = Math.floor(Math.random() * konum);//konumu en fazla 20 olabilir
+
+        let hamburgerKonumuMusaitMi = false;
+        while(!hamburgerKonumuMusaitMi){
+            hamburgerKonumuMusaitMi = true;
+            for(let parca of yilanParcalari){
+                if(parca.x === hamburgerX && parca.y === hamburgerY){ //hamburger yılan parçaları ile aynı konumdaysa konumunu değiştirir
+                    hamburgerX = Math.floor(Math.random() * konum);
+                    hamburgerY = Math.floor(Math.random() * konum);
+                }
+            }
+        }
+
+        yilanUzunluğu++; //hamburgeri yediğinde
+        skor = skor + 15;
+
+        if(yilanUzunluğu % 3 === 0){
+            hiz += 3;
+        }
+
+        hamburgerGelsin = false;
+        if(hamburgerGelsin === false){
+            hamburgerSuresi = 25;
+            document.getElementById("hamburgerLabel").style.display = "none";
         }
     }
 }
@@ -209,7 +261,7 @@ function oyunBittiMi(){
     }
 
     if(oyunBitti){
-        ctx.fillStyle = "white";
+        ctx.fillStyle = "Black";
         ctx.font = "60px Verdana";
         ctx.fillText(`Game Over!`, canvasWidth/10, canvasHeight/2);
     }
@@ -217,8 +269,21 @@ function oyunBittiMi(){
     return oyunBitti;
 }
 
-function canCiz(){
-    document.getElementById('canLabel').textContent = `Can: ${can}`;
+function hamburgerSuresiCiz(){
+    document.getElementById('hamburgerLabel').textContent = `Ödül Süresi: ${hamburgerSuresi}`;
+    if(hamburgerGelsin){
+        document.getElementById("hamburgerLabel").style.display = "block";
+        hamburgerSuresi--;
+        if(hamburgerGelsin === false){
+            hamburgerSuresi = 25;
+            document.getElementById("hamburgerLabel").style.display = "none";
+        }
+        else if(hamburgerSuresi === 0){
+            hamburgerGelsin = false;
+            hamburgerSuresi = 25;
+            document.getElementById("hamburgerLabel").style.display = "none";
+        }
+    }
 }
 
 function yeniOyun() {
