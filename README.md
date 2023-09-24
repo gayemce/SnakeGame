@@ -24,3 +24,5 @@ Oyun, yılanın kendisine çarpması durumunda sona erer. Oyunun sona erdiğine 
 
 ## Oyunun Geliştirilmesi ve Değiştirilmesi
 Bu oyun, JavaScript ve HTML5 Canvas kullanılarak geliştirilmiştir. Oyunun kurallarını, görünümünü veya davranışlarını değiştirmek için `snake.js` dosyasındaki kodu düzenleyebilir ve özelleştirebilirsiniz.
+
+![snakeGame Image](snakeGame.png)
