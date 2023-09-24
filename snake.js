@@ -22,7 +22,7 @@ let oyunBasladi = false;
 let hamburgerX = 10;
 let hamburgerY = 20;
 let hamburgerGelsin = false;
-let hamburgerSuresi = 25;
+let hamburgerSuresi = 45;
 
 document.getElementById("hamburgerLabel").style.display = "none";
 
@@ -273,7 +273,7 @@ function hamburgerSuresiCiz() {
     document.getElementById('hamburgerLabel').textContent = `Ödül Süresi: ${hamburgerSuresi}`;
     if (hamburgerGelsin) {
         document.getElementById("hamburgerLabel").style.display = "block";
-        hamburgerSuresi -= 1;
+        hamburgerSuresi--;
         if (hamburgerSuresi === 0) {
             hamburgerGelsin = false;
             hamburgerSuresi = 25;
